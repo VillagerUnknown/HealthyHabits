@@ -1,0 +1,81 @@
+{
+  "text.autoconfig.villagerunknown-healthyhabits.title": "VillagerUnknown's Healthy Habits",
+
+  "text.autoconfig.villagerunknown-healthyhabits.category.General": "General",
+
+  "text.autoconfig.villagerunknown-healthyhabits.option.revealCoordinatesOnDeath": "Reveal Coordinates on Death",
+  "text.autoconfig.villagerunknown-healthyhabits.option.defaultSoundVolume": "Default Sound Volume",
+  "text.autoconfig.villagerunknown-healthyhabits.option.toastReminderDurationInSeconds": "Toast Reminder Duration in Seconds",
+
+  "text.autoconfig.villagerunknown-healthyhabits.category.Affirmations": "Affirmations",
+
+  "text.autoconfig.villagerunknown-healthyhabits.option.enablePositiveAffirmations": "Enable Positive Affirmations",
+  "text.autoconfig.villagerunknown-healthyhabits.option.enablePositiveAffirmationSounds": "Enable Positive Affirmation Sounds",
+  "text.autoconfig.villagerunknown-healthyhabits.option.positiveAffirmationFrequencyInMinutes": "Positive Affirmation Frequency in Minutes",
+  "text.autoconfig.villagerunknown-healthyhabits.option.positiveAffirmationOnScreenInSeconds": "Positive Affirmation Time on Screen in Seconds",
+
+  "text.autoconfig.villagerunknown-healthyhabits.category.Auto-Quit": "Auto-Quit",
+
+  "text.autoconfig.villagerunknown-healthyhabits.option.autoQuitInMinutes": "Auto-Quit in Minutes",
+  "text.autoconfig.villagerunknown-healthyhabits.option.autoQuitWarningInMinutes": "Auto-Quit Warning in Minutes",
+  "text.autoconfig.villagerunknown-healthyhabits.option.requireBedInteractionToQuit": "Require Bed Interaction to Quit",
+  "text.autoconfig.villagerunknown-healthyhabits.option.autoQuitDisconnectMessage": "Auto-Quit Disconnect Message (Server)",
+
+  "text.autoconfig.villagerunknown-healthyhabits.category.Eating": "Eating",
+
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableEatingReminders": "Enable Eating Reminder",
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableEatingReminderSounds": "Enable Eating Reminder Sounds",
+  "text.autoconfig.villagerunknown-healthyhabits.option.eatingReminderFrequencyInMinutes": "Eating Reminder Frequency in Minutes",
+  "text.autoconfig.villagerunknown-healthyhabits.option.eatingBreakInMinutes": "Eating Break in Minutes after Reminder",
+  "text.autoconfig.villagerunknown-healthyhabits.option.eatingBreakShowsMenu": "Eating Break Shows Menu (Single Player)",
+  "text.autoconfig.villagerunknown-healthyhabits.option.eatingReminderMessage": "Eating Reminder Message",
+
+  "text.autoconfig.villagerunknown-healthyhabits.category.Hearing": "Hearing",
+
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableHearingReminders": "Enable Hearing Reminder",
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableHearingReminderSounds": "Enable Hearing Reminder Sounds",
+  "text.autoconfig.villagerunknown-healthyhabits.option.hearingReminderFrequencyInMinutes": "Hearing Reminder Frequency in Minutes",
+  "text.autoconfig.villagerunknown-healthyhabits.option.hearingBreakInMinutes": "Hearing Break in Minutes after Reminder",
+  "text.autoconfig.villagerunknown-healthyhabits.option.hearingBreakShowsMenu": "Hearing Break Shows Menu (Single Player)",
+  "text.autoconfig.villagerunknown-healthyhabits.option.hearingReminderMessage": "Hearing Reminder Message",
+
+  "text.autoconfig.villagerunknown-healthyhabits.category.Hydration": "Hydration",
+
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableHydrationReminders": "Enable Hydration Reminder",
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableHydrationReminderSounds": "Enable Hydration Reminder Sounds",
+  "text.autoconfig.villagerunknown-healthyhabits.option.hydrationReminderFrequencyInMinutes": "Hydration Reminder Frequency in Minutes",
+  "text.autoconfig.villagerunknown-healthyhabits.option.hydrationBreakInMinutes": "Hydration Break in Minutes after Reminder",
+  "text.autoconfig.villagerunknown-healthyhabits.option.hydrationBreakShowsMenu": "Hydration Break Shows Menu (Single Player)",
+  "text.autoconfig.villagerunknown-healthyhabits.option.hydrationReminderMessage": "Hydration Reminder Message",
+
+  "text.autoconfig.villagerunknown-healthyhabits.category.Sedentary": "Sedentary",
+
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableSedentaryReminders": "Enable Sedentary Reminders",
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableSedentaryReminderSounds": "Enable Sedentary Reminder Sounds",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sedentaryReminderFrequencyInMinutes": "Sedentary Reminder Frequency in Minutes",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sedentaryBreakInMinutes": "Sedentary Break in Minutes after Reminder",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sedentaryBreakShowsMenu": "Sedentary Break Shows Menu (Single Player)",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sedentaryReminderMessage": "Sedentary Reminder Message",
+
+  "text.autoconfig.villagerunknown-healthyhabits.category.Session": "Session",
+
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableSessionReminders": "Enable Session Reminders",
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableSessionReminderSounds": "Enable Session Reminder Sounds",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sessionReminderFrequencyInMinutes": "Session Reminder Frequency in Minutes",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sessionBreakInMinutes": "Session Break in Minutes after Reminder",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sessionBreakShowsMenu": "Session Break Shows Menu (Single Player)",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sessionReminderMessage": "Session Reminder Message",
+
+  "text.autoconfig.villagerunknown-healthyhabits.category.Sight": "Sight",
+
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableSightReminders": "Enable Sight Reminders",
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableSightReminderSounds": "Enable Sight Reminder Sounds",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sightReminderFrequencyInMinutes": "Sight Reminder Frequency in Minutes",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sightBreakInMinutes": "Sight Break in Minutes after Reminder",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sightBreakShowsMenu": "Sight Break Shows Menu (Single Player)",
+  "text.autoconfig.villagerunknown-healthyhabits.option.sightReminderMessage": "Sight Reminder Message",
+
+  "stat.villagerunknown-healthyhabits.total_affirmations": "Affirmations Received",
+  "stat.villagerunknown-healthyhabits.total_breaks": "Breaks Taken",
+  "stat.villagerunknown-healthyhabits.total_reminders": "Reminders Received"
+}
