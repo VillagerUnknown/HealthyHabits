@@ -1,6 +1,7 @@
 package me.villagerunknown.healthyhabits.feature;
 
 import me.villagerunknown.healthyhabits.Healthyhabits;
+import me.villagerunknown.platform.builder.StringsListBuilder;
 import me.villagerunknown.platform.timer.TickTimer;
 import me.villagerunknown.platform.util.*;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
@@ -20,37 +21,37 @@ import static me.villagerunknown.healthyhabits.Healthyhabits.MOD_ID;
 
 public class positiveAffirmationsFeature {
 	
-	public static final List<String> positiveAffirmations = List.of(
-			"You're doing great!",
+	public static final List<String> POSITIVE_AFFIRMATIONS = List.of(
+			"You’re doing great!",
 			"Keep up the great job!",
-			"You're doing amazing — keep going!",
+			"You’re doing amazing — keep going!",
 			"Every step you take brings you closer to your goals!",
 			"You have the power to overcome any challenge.",
 			"Small progress is still progress. Keep moving forward!",
 			"Your creativity knows no bounds — keep building!",
-			"Remember, you're stronger than you think.",
-			"You've got this! One block at a time.",
+			"Remember, you’re stronger than you think.",
+			"You’ve got this! One block at a time.",
 			"Success is built one action at a time. Keep going!",
 			"Patience and perseverance will always lead you to success.",
-			"Trust yourself — you're capable of achieving great things!",
+			"Trust yourself — you’re capable of achieving great things!",
 			"You are worthy of all the good things coming your way.",
-			"Believe in yourself — you've got what it takes!",
+			"Believe in yourself — you’ve got what it takes!",
 			"You are enough, just as you are.",
 			"You are unique and your perspective matters!",
-			"Your potential is limitless — don't stop now!",
+			"Your potential is limitless — don’t stop now!",
 			"You have the strength to face anything that comes your way.",
 			"You are doing better than you think — trust the process.",
 			"No challenge is too big for you to conquer.",
 			"Today is another opportunity for growth. Seize it!",
 			"You are capable of achieving greatness — keep believing in yourself!",
-			"Take a deep breath — you're doing great.",
+			"Take a deep breath — you’re doing great.",
 			"Slow down and enjoy the journey, step by step.",
-			"It's okay to take a break — relaxation helps you grow stronger.",
+			"It’s okay to take a break — relaxation helps you grow stronger.",
 			"You are in control of your progress. Breathe and enjoy the moment.",
 			"Let go of stress and let peace guide you.",
 			"Remember to breathe. You are safe and you are enough.",
-			"It's okay to pause and reset — you deserve it.",
-			"You've got the strength to overcome any setback. Stay calm.",
+			"It’s okay to pause and reset — you deserve it.",
+			"You’ve got the strength to overcome any setback. Stay calm.",
 			"Relax and trust the process — everything will fall into place.",
 			"Breathe deeply and allow yourself to feel at peace.",
 			"Every challenge is an opportunity to grow. Keep pushing forward!",
@@ -103,10 +104,10 @@ public class positiveAffirmationsFeature {
 			"Take a deep breath and appreciate how far you’ve come."
 	);
 	
-	public static final List<String> positiveAffirmationsForSleep = List.of(
+	public static final List<String> POSITIVE_AFFIRMATIONS_FOR_SLEEP = List.of(
 			"I am winding down and preparing my mind and body for rest.",
 			"I deserve to relax and take care of myself before sleep.",
-			"The day is done, and now it's time to let go of everything.",
+			"The day is done, and now it’s time to let go of everything.",
 			"I am grateful for the moments of today, and I release any stress or worries.",
 			"I trust that tomorrow will bring new opportunities and experiences.",
 			"My body knows exactly how to relax, and I allow it to do so now.",
@@ -173,7 +174,7 @@ public class positiveAffirmationsFeature {
 			"I let go of the need to be productive and give myself permission to rest.",
 			"I am grateful for this moment of stillness as I wind down for the night.",
 			"I am free from any anxiety, and I invite relaxation into my being.",
-			"I am ready to release the day's worries and embrace peaceful rest.",
+			"I am ready to release the day’s worries and embrace peaceful rest.",
 			"I trust that the night will bring me the deep sleep I need.",
 			"I trust that tomorrow will unfold beautifully, and I am ready to rest.",
 			"I am giving myself the time and space I need to rest and recharge.",
@@ -206,7 +207,7 @@ public class positiveAffirmationsFeature {
 			"I am surrounded by peace, and I surrender to the calm of the night."
 	);
 	
-	public static final List<String> positiveAffirmationsForDeath = List.of(
+	public static final List<String> POSITIVE_AFFIRMATIONS_FOR_DEATH = List.of(
 			"You’ve faced defeat, but it’s not the end. You’re stronger for it!",
 			"Every setback is just another opportunity to grow. Get back up!",
 			"You’re not defined by this moment. Keep pushing forward — success is on the horizon.",
@@ -272,14 +273,14 @@ public class positiveAffirmationsFeature {
 			"Failure is just a part of the journey. Victory is waiting for you!",
 			"You’re so much closer than you think — keep your head up!",
 			"The best is yet to come. Keep pushing forward!",
-			"The path to victory is never easy, but you're making it!",
+			"The path to victory is never easy, but you’re making it!",
 			"Success is built on persistence. You’re doing the work — it will pay off!",
 			"Your determination is stronger than any setback. Keep going!",
 			"This is just one battle, not the end of the war. Keep fighting!",
 			"You’ve got everything you need to succeed. This death is just part of the adventure."
 	);
 	
-	public static final List<String> positiveAffirmationsForReflection = List.of(
+	public static final List<String> POSITIVE_AFFIRMATIONS_FOR_REFLECTION = List.of(
 			"I made meaningful progress today, and my efforts are valuable.",
 			"I dedicated my time and energy to creating something important.",
 			"Each task I completed brings me closer to my goals.",
@@ -351,6 +352,11 @@ public class positiveAffirmationsFeature {
 			"I’ve made real progress today, and I can see the results of my hard work."
 	);
 	
+	public static StringsListBuilder positiveAffirmations = new StringsListBuilder( Healthyhabits.MOD_ID + "-affirmations.json", POSITIVE_AFFIRMATIONS );
+	public static StringsListBuilder positiveAffirmationsForSleep = new StringsListBuilder( Healthyhabits.MOD_ID + "-affirmations-sleep.json", POSITIVE_AFFIRMATIONS_FOR_SLEEP );
+	public static StringsListBuilder positiveAffirmationsForDeath = new StringsListBuilder( Healthyhabits.MOD_ID + "-affirmations-death.json", POSITIVE_AFFIRMATIONS_FOR_DEATH );
+	public static StringsListBuilder positiveAffirmationsForReflection = new StringsListBuilder( Healthyhabits.MOD_ID + "-affirmations-reflection.json", POSITIVE_AFFIRMATIONS_FOR_REFLECTION );
+	
 	public static final Identifier TOTAL_AFFIRMATIONS_ID = RegistryUtil.registerStat( "total_affirmations", Healthyhabits.MOD_ID, StatFormatter.DEFAULT );
 	
 	static Map<UUID, TickTimer> playerTimers = new HashMap<>();
@@ -405,9 +411,9 @@ public class positiveAffirmationsFeature {
 			playerTimers.put( player.getUuid(), timer );
 			
 			if( TimeUtil.isNightTime( player.getServerWorld() ) ) {
-				sendMessage(positiveAffirmationsForSleep, player);
+				sendMessage(positiveAffirmationsForSleep.getList(), player);
 			} else {
-				sendMessage(positiveAffirmations, player);
+				sendMessage(positiveAffirmations.getList(), player);
 			} // if, else
 		});
 		
@@ -425,9 +431,9 @@ public class positiveAffirmationsFeature {
 					if( null != player ) {
 						if (player.isAlive() && !player.isSleeping()) {
 							if( TimeUtil.isNightTime( player.getServerWorld() ) ) {
-								sendMessage(positiveAffirmationsForSleep, player);
+								sendMessage(positiveAffirmationsForSleep.getList(), player);
 							} else {
-								sendMessage(positiveAffirmations, player);
+								sendMessage(positiveAffirmations.getList(), player);
 							} // if, else
 						} // if
 					} // if
@@ -495,7 +501,7 @@ public class positiveAffirmationsFeature {
 		});
 		
 		ServerPlayerEvents.AFTER_RESPAWN.register((serverPlayerEntity, serverPlayerEntity1, b) -> {
-			sendMessage( positiveAffirmationsForDeath, serverPlayerEntity );
+			sendMessage( positiveAffirmationsForDeath.getList(), serverPlayerEntity );
 		});
 	}
 	

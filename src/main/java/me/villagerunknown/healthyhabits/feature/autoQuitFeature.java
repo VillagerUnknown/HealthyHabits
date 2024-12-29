@@ -52,7 +52,7 @@ public class autoQuitFeature {
 						ToastUtil.showToast( player, title, message, duration );
 						playerTimer.putData("config_minute_warning",true);
 						
-						positiveAffirmationsFeature.sendMessage( positiveAffirmationsFeature.positiveAffirmationsForReflection, player );
+						positiveAffirmationsFeature.sendMessage( positiveAffirmationsFeature.positiveAffirmationsForReflection.getList(), player );
 					} // if
 					
 					if (null == playerTimer.getData( "1_minute_warning" ) && Healthyhabits.CONFIG.autoQuitWarningInMinutes > 0 && playerTimer.getMinutesUntilAlarm() <= 1) {
@@ -66,7 +66,7 @@ public class autoQuitFeature {
 						ToastUtil.showToast( player, title, message, duration );
 						playerTimer.putData("1_minute_warning",true);
 						
-						positiveAffirmationsFeature.sendMessage( positiveAffirmationsFeature.positiveAffirmationsForReflection, player );
+						positiveAffirmationsFeature.sendMessage( positiveAffirmationsFeature.positiveAffirmationsForReflection.getList(), player );
 					} // if
 					
 					if (playerTimer.isAlarmActivated() && !Healthyhabits.CONFIG.requireBedInteractionToQuit) {
