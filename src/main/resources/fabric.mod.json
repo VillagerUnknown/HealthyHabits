@@ -3,7 +3,7 @@
   "id": "villagerunknown-healthyhabits",
   "version": "${version}",
   "name": "VillagerUnknown's Healthy Habits",
-  "description": "Hrm.. A wellness tool to encourage healthy habits.",
+  "description": "A wellness tool to encourage healthy habits.",
   "authors": ["VillagerUnknown"],
   "contact": {
     "homepage":"https://discord.gg/PXjXh6M38H"
@@ -33,7 +33,7 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}",
-    "villagerunknown-platform": ">=1.1.0"
+    "villagerunknown-platform": ">=1.1.1"
   },
   "custom": {
     "modmenu": {
