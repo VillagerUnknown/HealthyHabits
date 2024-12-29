@@ -50,9 +50,10 @@ A personal wellness tool to encourage healthy habits by adding positive affirmat
 
 ## Support
 
-* Works on servers to sync timers and messages, but it's best left to the clients.
-* Please leave and re-enter your world if you change settings for timers while in your world for the changes to take effect.
-
 * Get support and share feedback at https://discord.gg/PXjXh6M38H
 * Request features and report bugs at https://github.com/VillagerUnknown/HealthyHabits/issues
 * View the changelog at https://github.com/VillagerUnknown/HealthyHabits/blob/main/CHANGELOG.md
+
+**Things To Know**
+* Works on servers to sync timers and messages, but it's best left to the clients.
+* Please leave and re-enter your world if you change settings for timers while in your world for the changes to take effect.
