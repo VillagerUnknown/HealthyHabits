@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2]
+
+### Changed
+
+- Positive Affirmations now read from config files.
+
 ## [1.0.1]
 
 ### Changed
