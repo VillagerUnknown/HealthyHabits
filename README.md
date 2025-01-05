@@ -2,6 +2,8 @@
 
 A personal wellness tool to encourage healthy habits by adding positive affirmations, wellness reminders, and wellness breaks to your game.
 
+Positive Affirmations can be customized through config files.
+
 **Optional Features:**
 
 * Positive Affirmations to encourage a positive mindset and boost your mood while you play.
