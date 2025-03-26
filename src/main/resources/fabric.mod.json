@@ -6,7 +6,9 @@
   "description": "A personal wellness tool to encourage healthy habits by adding positive affirmations, wellness reminders, and wellness breaks to your game.",
   "authors": ["VillagerUnknown"],
   "contact": {
-    "homepage":"https://discord.gg/PXjXh6M38H"
+    "homepage":"https://modrinth.com/mod/villagerunknown-healthyhabits",
+    "sources": "https://github.com/VillagerUnknown/HealthyHabits",
+    "issues": "https://github.com/VillagerUnknown/HealthyHabits/issues"
   },
   "license": "CC-BY-4.0",
   "icon": "assets/healthyhabits/villagerunknown-healthy-habits.png",
@@ -34,12 +36,5 @@
     "fabric": "*",
     "minecraft": "${minecraft_version}",
     "villagerunknown-platform": ">=1.1.1"
-  },
-  "custom": {
-    "modmenu": {
-      "links": {
-        "modmenu.discord": "https://discord.gg/PXjXh6M38H"
-      }
-    }
   }
 }
