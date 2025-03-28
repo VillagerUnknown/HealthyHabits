@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -494,7 +495,8 @@ public class positiveAffirmationsFeature {
 		ServerLivingEntityEvents.ALLOW_DEATH.register((livingEntity, damageSource, v) -> {
 			if( livingEntity.isPlayer() ) {
 				if( Healthyhabits.CONFIG.revealCoordinatesOnDeath ) {
-					livingEntity.sendMessage( Text.of("You died at: " + (int) Math.floor(livingEntity.getPos().getX()) + " " + (int) Math.floor(livingEntity.getPos().getY()) + " " + (int) Math.floor(livingEntity.getPos().getZ())));
+					PlayerEntity player = (PlayerEntity) livingEntity;
+					player.sendMessage( Text.of("You died at: " + (int) Math.floor(livingEntity.getPos().getX()) + " " + (int) Math.floor(livingEntity.getPos().getY()) + " " + (int) Math.floor(livingEntity.getPos().getZ())), false);
 				} // if
 			} // if
 			return true;
