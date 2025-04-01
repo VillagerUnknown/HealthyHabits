@@ -40,6 +40,9 @@ public class Healthyhabits implements ModInitializer {
 		featureManager.addFeature( "sedentaryReminder", new sedentaryReminderFeature()::execute );
 		featureManager.addFeature( "sessionReminder", new sessionReminderFeature()::execute );
 		featureManager.addFeature( "sightReminder", new sightReminderFeature()::execute );
+		
+		// # Load Features
+		featureManager.loadFeatures();
 	}
 	
 }
