@@ -482,7 +482,7 @@ public class positiveAffirmationsFeature {
 			if( entity.isPlayer() ) {
 				ServerPlayerEntity player = (ServerPlayerEntity) entity;
 				
-				if( Healthyhabits.CONFIG.enablePositiveAffirmations ) {
+				if( Healthyhabits.CONFIG.enableDamageAffirmations ) {
 					player.sendMessageToClient(Text.of("REMAIN CALM AND BREATH"), true);
 				} // if
 			} // if

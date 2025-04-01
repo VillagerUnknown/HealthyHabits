@@ -27,6 +27,9 @@ public class HealthyhabitsConfigData implements me.shedaniel.autoconfig.ConfigDa
 	public boolean enablePositiveAffirmations = true;
 	
 	@ConfigEntry.Category("Affirmations")
+	public boolean enableDamageAffirmations = true;
+	
+	@ConfigEntry.Category("Affirmations")
 	public boolean enablePositiveAffirmationSounds = true;
 	
 	@ConfigEntry.Category("Affirmations")

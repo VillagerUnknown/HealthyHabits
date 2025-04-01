@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3+1.21.5]
+
+### Added
+
+- Added option to toggle the affirmation message, "KEEP CALM AND BREATH," when taking damage.
+
 ## [1.0.2+1.21.5]
 
 ### Changed
