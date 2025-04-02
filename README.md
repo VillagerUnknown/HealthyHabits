@@ -20,6 +20,7 @@ Positive Affirmations can be customized through config files.
 **Affirmation Options:**
 
 * Enable Positive Affirmations (Default: True)
+* Enable Damage Affirmations (Default: True)
 * Enable Positive Affirmation Sounds (Default: True)
 * Narrate Positive Affirmations (Default: False)
 * Positive Affirmation Frequency in Minutes (Default: 1)
