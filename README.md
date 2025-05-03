@@ -53,7 +53,6 @@ Positive Affirmations can be customized through config files.
 
 ## Support
 
-* Get support and share feedback at https://discord.gg/PXjXh6M38H
 * Request features and report bugs at https://github.com/VillagerUnknown/HealthyHabits/issues
 * View the changelog at https://github.com/VillagerUnknown/HealthyHabits/blob/main/CHANGELOG.md
 
