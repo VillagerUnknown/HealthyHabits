@@ -2,12 +2,15 @@ package me.villagerunknown.healthyhabits.feature;
 
 import me.villagerunknown.healthyhabits.Healthyhabits;
 import me.villagerunknown.platform.builder.StringsListBuilder;
+import me.villagerunknown.platform.timer.ServerTickTimer;
 import me.villagerunknown.platform.timer.TickTimer;
 import me.villagerunknown.platform.util.*;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -359,8 +362,8 @@ public class positiveAffirmationsFeature {
 	
 	public static final Identifier TOTAL_AFFIRMATIONS_ID = RegistryUtil.registerStat( "total_affirmations", Healthyhabits.MOD_ID, StatFormatter.DEFAULT );
 	
-	static Map<UUID, TickTimer> playerTimers = new HashMap<>();
-	static Map<UUID, TickTimer> displayTimers = new HashMap<>();
+	static Map<UUID, ServerTickTimer> playerTimers = new HashMap<>();
+	static Map<UUID, ServerTickTimer> displayTimers = new HashMap<>();
 	
 	private static final Random rand = new Random();
 	
@@ -375,21 +378,25 @@ public class positiveAffirmationsFeature {
 			displayTimers.remove( player.getUuid() );
 		}
 		
-		TickTimer displayTimer = new TickTimer( 0, Healthyhabits.CONFIG.positiveAffirmationOnScreenInSeconds );
+		MinecraftServer server = player.getServer();
 		
-		String randomAffirmation = list.get(rand.nextInt(list.size()));
-		
-		displayTimer.putData( "affirmation", randomAffirmation );
-		
-		displayTimers.put( player.getUuid(), displayTimer );
-		
-		player.incrementStat( TOTAL_AFFIRMATIONS_ID );
-		
-		showActionBarMessage( randomAffirmation, player );
-		
-		playSound( player );
-		
-		NarratorUtil.narrate( player, randomAffirmation );
+		if( null != server ) {
+			ServerTickTimer displayTimer = new ServerTickTimer( server.getTicks(), 0, Healthyhabits.CONFIG.positiveAffirmationOnScreenInSeconds );
+			
+			String randomAffirmation = list.get(rand.nextInt(list.size()));
+			
+			displayTimer.putData( "affirmation", randomAffirmation );
+			
+			displayTimers.put( player.getUuid(), displayTimer );
+			
+			player.incrementStat( TOTAL_AFFIRMATIONS_ID );
+			
+			showActionBarMessage( randomAffirmation, player );
+			
+			playSound( player );
+			
+			NarratorUtil.narrate( player, randomAffirmation );
+		} // if
 	}
 	
 	private static void showActionBarMessage( String affirmation, ServerPlayerEntity player ) {
@@ -407,7 +414,7 @@ public class positiveAffirmationsFeature {
 		ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
 			ServerPlayerEntity player = serverPlayNetworkHandler.player;
 			
-			TickTimer timer = new TickTimer( Healthyhabits.CONFIG.positiveAffirmationFrequencyInMinutes );
+			ServerTickTimer timer = new ServerTickTimer( minecraftServer.getTicks(), Healthyhabits.CONFIG.positiveAffirmationFrequencyInMinutes );
 			playerTimers.put( player.getUuid(), timer );
 			
 			if( TimeUtil.isNightTime( player.getServerWorld() ) ) {
@@ -419,11 +426,13 @@ public class positiveAffirmationsFeature {
 		
 		// # Server ticks
 		ServerTickEvents.START_SERVER_TICK.register(minecraftServer -> {
-			for( Map.Entry<UUID, TickTimer> playerData : playerTimers.entrySet() ) {
+			long currentTick = minecraftServer.getTicks();
+			
+			for( Map.Entry<UUID, ServerTickTimer> playerData : playerTimers.entrySet() ) {
 				UUID playerUUID = playerData.getKey();
-				TickTimer playerTimer = playerData.getValue();
+				ServerTickTimer playerTimer = playerData.getValue();
 				
-				playerTimer.tick();
+				playerTimer.tick( currentTick );
 				
 				if( playerTimer.isAlarmActivated() ) {
 					ServerPlayerEntity player = minecraftServer.getPlayerManager().getPlayer( playerUUID );
@@ -438,14 +447,14 @@ public class positiveAffirmationsFeature {
 						} // if
 					} // if
 					
-					playerTimer.resetAlarmActivation();
+					playerTimer.resetAlarmActivation( currentTick );
 				} // if
 			} // for
 			
 			if (!displayTimers.isEmpty()) {
-				for (Map.Entry<UUID, TickTimer> displayData : displayTimers.entrySet()) {
+				for (Map.Entry<UUID, ServerTickTimer> displayData : displayTimers.entrySet()) {
 					UUID playerUUID = displayData.getKey();
-					TickTimer displayTimer = displayData.getValue();
+					ServerTickTimer displayTimer = displayData.getValue();
 					
 					if( displayTimer.hasData() ) {
 						Object affirmationMessage = displayTimer.getData("affirmation");
@@ -459,7 +468,7 @@ public class positiveAffirmationsFeature {
 						} // if
 					} // if
 					
-					displayTimer.tick();
+					displayTimer.tick( currentTick );
 					
 					if (displayTimer.isAlarmActivated()) {
 						displayTimers.remove(playerUUID);
@@ -481,7 +490,7 @@ public class positiveAffirmationsFeature {
 			if( entity.isPlayer() ) {
 				ServerPlayerEntity player = (ServerPlayerEntity) entity;
 				
-				if( Healthyhabits.CONFIG.enablePositiveAffirmations ) {
+				if( Healthyhabits.CONFIG.enableDamageAffirmations ) {
 					player.sendMessageToClient(Text.of("REMAIN CALM AND BREATH"), true);
 				} // if
 			} // if
@@ -492,9 +501,9 @@ public class positiveAffirmationsFeature {
 	
 	private static void affirmationOnDeath() {
 		ServerLivingEntityEvents.ALLOW_DEATH.register((livingEntity, damageSource, v) -> {
-			if( livingEntity.isPlayer() ) {
+			if( livingEntity instanceof PlayerEntity playerEntity) {
 				if( Healthyhabits.CONFIG.revealCoordinatesOnDeath ) {
-					livingEntity.sendMessage( Text.of("You died at: " + (int) Math.floor(livingEntity.getPos().getX()) + " " + (int) Math.floor(livingEntity.getPos().getY()) + " " + (int) Math.floor(livingEntity.getPos().getZ())));
+					playerEntity.sendMessage( Text.of("You died at: " + (int) Math.floor(livingEntity.getPos().getX()) + " " + (int) Math.floor(livingEntity.getPos().getY()) + " " + (int) Math.floor(livingEntity.getPos().getZ())), false);
 				} // if
 			} // if
 			return true;

@@ -1,6 +1,7 @@
 package me.villagerunknown.healthyhabits.feature;
 
 import me.villagerunknown.healthyhabits.Healthyhabits;
+import me.villagerunknown.platform.timer.ServerTickTimer;
 import me.villagerunknown.platform.timer.TickTimer;
 import me.villagerunknown.platform.util.ClientUtil;
 import me.villagerunknown.platform.util.ToastUtil;
@@ -17,31 +18,35 @@ import java.util.UUID;
 
 public class autoQuitFeature {
 	
-	static Map<UUID, TickTimer> playerTimers = new HashMap<>();
+	static Map<UUID, ServerTickTimer> playerTimers = new HashMap<>();
 	
 	public static void execute() {
 		// # Player joins the server
 		ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
-			TickTimer timer = new TickTimer( Healthyhabits.CONFIG.autoQuitInMinutes );
+			ServerTickTimer timer = new ServerTickTimer( minecraftServer.getTicks(), Healthyhabits.CONFIG.autoQuitInMinutes );
 			playerTimers.put( serverPlayNetworkHandler.player.getUuid(), timer );
 		});
 		
 		// # Server ticks
 		ServerTickEvents.START_SERVER_TICK.register(minecraftServer -> {
-			for (Map.Entry<UUID, TickTimer> playerData : playerTimers.entrySet()) {
+			long currentTick = minecraftServer.getTicks();
+			
+			for (Map.Entry<UUID, ServerTickTimer> playerData : playerTimers.entrySet()) {
 				UUID playerUUID = playerData.getKey();
-				TickTimer playerTimer = playerData.getValue();
+				ServerTickTimer playerTimer = playerData.getValue();
 				
 				ServerPlayerEntity player = minecraftServer.getPlayerManager().getPlayer( playerUUID );
 				
-				playerTimer.tick();
+				playerTimer.tick( currentTick );
 				
 				if( null != player && Healthyhabits.CONFIG.autoQuitInMinutes > 0 ) {
 					String title = "Auto-Quit";
 					String message;
 					Long duration;
 					
-					if (null == playerTimer.getData( "config_minute_warning" ) && Healthyhabits.CONFIG.autoQuitWarningInMinutes > 0 && playerTimer.getMinutesUntilAlarm() <= Healthyhabits.CONFIG.autoQuitWarningInMinutes && playerTimer.getMinutesUntilAlarm() > 1) {
+					long minutesUntilAlarm = playerTimer.getMinutesUntilAlarm( currentTick );
+					
+					if (null == playerTimer.getData( "config_minute_warning" ) && Healthyhabits.CONFIG.autoQuitWarningInMinutes > 0 && minutesUntilAlarm <= Healthyhabits.CONFIG.autoQuitWarningInMinutes && minutesUntilAlarm > 1) {
 						if( Healthyhabits.CONFIG.requireBedInteractionToQuit ) {
 							message = "Your session ends in less than " + Healthyhabits.CONFIG.autoQuitWarningInMinutes + " minutes. Interact with a bed to quit.";
 						} else {
@@ -55,7 +60,7 @@ public class autoQuitFeature {
 						positiveAffirmationsFeature.sendMessage( positiveAffirmationsFeature.positiveAffirmationsForReflection.getList(), player );
 					} // if
 					
-					if (null == playerTimer.getData( "1_minute_warning" ) && Healthyhabits.CONFIG.autoQuitWarningInMinutes > 0 && playerTimer.getMinutesUntilAlarm() <= 1) {
+					if (null == playerTimer.getData( "1_minute_warning" ) && Healthyhabits.CONFIG.autoQuitWarningInMinutes > 0 && minutesUntilAlarm <= 1) {
 						if( Healthyhabits.CONFIG.requireBedInteractionToQuit ) {
 							message = "Your session ends in less than 1 minute. Interact with a bed to quit.";
 						} else {
@@ -71,7 +76,7 @@ public class autoQuitFeature {
 					
 					if (playerTimer.isAlarmActivated() && !Healthyhabits.CONFIG.requireBedInteractionToQuit) {
 						shutdown(player);
-						playerTimer.resetAlarmActivation();
+						playerTimer.resetAlarmActivation( currentTick );
 					} // if
 				} // if
 			}
@@ -85,13 +90,15 @@ public class autoQuitFeature {
 		// Player interacts with bed
 		EntitySleepEvents.ALLOW_SLEEP_TIME.register((playerEntity, blockPos, b) -> {
 			ServerPlayerEntity player = (ServerPlayerEntity) playerEntity;
+			MinecraftServer server = player.getServer();
 			
-			if( Healthyhabits.CONFIG.autoQuitInMinutes > 0 && Healthyhabits.CONFIG.requireBedInteractionToQuit ) {
-				TickTimer playerTimer = playerTimers.get( player.getUuid() );
+			if( null != server && Healthyhabits.CONFIG.autoQuitInMinutes > 0 && Healthyhabits.CONFIG.requireBedInteractionToQuit ) {
+				ServerTickTimer playerTimer = playerTimers.get( player.getUuid() );
+				long currentTick = server.getTicks();
 				
-				if( playerTimer.getMinutesUntilAlarm() <= Healthyhabits.CONFIG.autoQuitWarningInMinutes || playerTimer.isAlarmActivated() ) {
+				if( playerTimer.getMinutesUntilAlarm( currentTick ) <= Healthyhabits.CONFIG.autoQuitWarningInMinutes || playerTimer.isAlarmActivated() ) {
 					shutdown( player );
-					playerTimer.resetAlarmActivation();
+					playerTimer.resetAlarmActivation( currentTick );
 				} // if
 			} // if
 			

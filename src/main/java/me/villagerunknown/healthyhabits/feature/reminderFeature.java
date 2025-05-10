@@ -3,6 +3,7 @@ package me.villagerunknown.healthyhabits.feature;
 import me.villagerunknown.healthyhabits.Healthyhabits;
 import me.villagerunknown.platform.network.ShowPlayerGameMenuPayload;
 import me.villagerunknown.platform.network.ToastMessagePayload;
+import me.villagerunknown.platform.timer.ServerTickTimer;
 import me.villagerunknown.platform.timer.TickTimer;
 import me.villagerunknown.platform.util.EntityUtil;
 import me.villagerunknown.platform.util.RegistryUtil;
@@ -36,8 +37,8 @@ abstract class reminderFeature {
 	protected boolean breakShowMenu;
 	protected SoundEvent alertSound;
 	
-	protected Map<UUID, TickTimer> playerTimers = new HashMap<>();
-	protected Map<UUID, TickTimer> breakTimers = new HashMap<>();
+	protected Map<UUID, ServerTickTimer> playerTimers = new HashMap<>();
+	protected Map<UUID, ServerTickTimer> breakTimers = new HashMap<>();
 	
 	public reminderFeature(
 			String reminderType,
@@ -65,18 +66,20 @@ abstract class reminderFeature {
 	public void execute() {
 		// # Player joins the server
 		ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {
-			TickTimer timer = new TickTimer(reminderFrequencyInMinutes);
+			ServerTickTimer timer = new ServerTickTimer( minecraftServer.getTicks(), reminderFrequencyInMinutes);
 			playerTimers.put(serverPlayNetworkHandler.player.getUuid(), timer);
 		});
 		
 		// # Server ticks
 		ServerTickEvents.START_SERVER_TICK.register(minecraftServer -> {
-			for(Map.Entry<UUID, TickTimer> playerData : playerTimers.entrySet()) {
+			long currentTick = minecraftServer.getTicks();
+			
+			for(Map.Entry<UUID, ServerTickTimer> playerData : playerTimers.entrySet()) {
 				UUID playerUUID = playerData.getKey();
-				TickTimer playerTimer = playerData.getValue();
+				ServerTickTimer playerTimer = playerData.getValue();
 				
 				if(!breakTimers.containsKey(playerUUID)) {
-					playerTimer.tick();
+					playerTimer.tick( currentTick );
 				} // if
 				
 				if(enableReminders && playerTimer.isAlarmActivated()) {
@@ -92,7 +95,7 @@ abstract class reminderFeature {
 						long duration = Healthyhabits.CONFIG.toastReminderDurationInSeconds * ToastUtil.TOAST_DURATION_SECOND;
 						
 						if (breakInMinutes > 0) {
-							TickTimer breakTimer = new TickTimer(breakInMinutes);
+							ServerTickTimer breakTimer = new ServerTickTimer(currentTick, breakInMinutes);
 							breakTimers.put(player.getUuid(), breakTimer);
 							
 							message = "This is your " + breakInMinutes + " minute " + reminderType + " break to " + reminderAction + "!";
@@ -111,17 +114,17 @@ abstract class reminderFeature {
 							ServerPlayNetworking.send( player, new ShowPlayerGameMenuPayload());
 						} // if
 						
-						playerTimer.resetAlarmActivation();
+						playerTimer.resetAlarmActivation( currentTick );
 					} // if
 				} // if
 			} // for
 			
 			if (!breakTimers.isEmpty()) {
-				for (Map.Entry<UUID, TickTimer> breakData : breakTimers.entrySet()) {
+				for (Map.Entry<UUID, ServerTickTimer> breakData : breakTimers.entrySet()) {
 					UUID playerUUID = breakData.getKey();
-					TickTimer breakTimer = breakData.getValue();
+					ServerTickTimer breakTimer = breakData.getValue();
 					
-					breakTimer.tick();
+					breakTimer.tick( currentTick );
 					
 					if (breakTimer.isAlarmActivated()) {
 						breakTimers.remove(playerUUID);
