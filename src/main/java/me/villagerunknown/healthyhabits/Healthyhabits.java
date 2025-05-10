@@ -9,20 +9,13 @@ import org.slf4j.Logger;
 
 public class Healthyhabits implements ModInitializer {
 	
-	public static PlatformMod<HealthyhabitsConfigData> MOD = null;
-	public static String MOD_ID = null;
-	public static Logger LOGGER = null;
-	public static HealthyhabitsConfigData CONFIG = null;
+	public static PlatformMod<HealthyhabitsConfigData> MOD = Platform.register( "healthyhabits", Healthyhabits.class, HealthyhabitsConfigData.class );
+	public static String MOD_ID = MOD.getModId();
+	public static Logger LOGGER = MOD.getLogger();
+	public static HealthyhabitsConfigData CONFIG = MOD.getConfig();
 	
 	@Override
 	public void onInitialize() {
-		// # Register Mod w/ Platform
-		MOD = Platform.register( "healthyhabits", Healthyhabits.class, HealthyhabitsConfigData.class );
-		
-		MOD_ID = MOD.getModId();
-		LOGGER = MOD.getLogger();
-		CONFIG = MOD.getConfig();
-		
 		// # Initialize Mod
 		init();
 	}
@@ -40,6 +33,8 @@ public class Healthyhabits implements ModInitializer {
 		featureManager.addFeature( "sedentaryReminder", new sedentaryReminderFeature()::execute );
 		featureManager.addFeature( "sessionReminder", new sessionReminderFeature()::execute );
 		featureManager.addFeature( "sightReminder", new sightReminderFeature()::execute );
+		
+		featureManager.loadFeatures();
 	}
 	
 }
