@@ -10,6 +10,7 @@
   "text.autoconfig.villagerunknown-healthyhabits.category.Affirmations": "Affirmations",
 
   "text.autoconfig.villagerunknown-healthyhabits.option.enablePositiveAffirmations": "Enable Positive Affirmations",
+  "text.autoconfig.villagerunknown-healthyhabits.option.enableDamageAffirmations": "Enable Damage Affirmations",
   "text.autoconfig.villagerunknown-healthyhabits.option.enablePositiveAffirmationSounds": "Enable Positive Affirmation Sounds",
   "text.autoconfig.villagerunknown-healthyhabits.option.positiveAffirmationFrequencyInMinutes": "Positive Affirmation Frequency in Minutes",
   "text.autoconfig.villagerunknown-healthyhabits.option.positiveAffirmationOnScreenInSeconds": "Positive Affirmation Time on Screen in Seconds",
