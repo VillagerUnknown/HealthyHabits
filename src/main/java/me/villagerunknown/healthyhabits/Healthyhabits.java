@@ -16,11 +16,7 @@ public class Healthyhabits implements ModInitializer {
 	
 	@Override
 	public void onInitialize() {
-		// # Initialize Mod
-		init();
-	}
-	
-	private static void init() {
+		// # Initialize mod with Platform
 		Platform.init_mod( MOD );
 		
 		// # Activate Features
@@ -34,6 +30,7 @@ public class Healthyhabits implements ModInitializer {
 		featureManager.addFeature( "sessionReminder", new sessionReminderFeature()::execute );
 		featureManager.addFeature( "sightReminder", new sightReminderFeature()::execute );
 		
+		// # Load Features
 		featureManager.loadFeatures();
 	}
 	
