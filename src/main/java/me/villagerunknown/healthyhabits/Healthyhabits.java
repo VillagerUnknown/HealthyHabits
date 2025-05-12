@@ -20,15 +20,15 @@ public class Healthyhabits implements ModInitializer {
 		Platform.init_mod( MOD );
 		
 		// # Activate Features
-		featureManager.addFeature( "positiveAffirmations", positiveAffirmationsFeature::execute );
-		featureManager.addFeature( "autoQuit", autoQuitFeature::execute );
+		featureManager.addFeature( "positive-affirmations", positiveAffirmationsFeature::execute );
+		featureManager.addFeature( "auto-quit", autoQuitFeature::execute );
 		
-		featureManager.addFeature( "eatingReminder", new eatingReminderFeature()::execute );
-		featureManager.addFeature( "hearingReminder", new hearingReminderFeature()::execute );
-		featureManager.addFeature( "hydrationReminder", new hydrationReminderFeature()::execute );
-		featureManager.addFeature( "sedentaryReminder", new sedentaryReminderFeature()::execute );
-		featureManager.addFeature( "sessionReminder", new sessionReminderFeature()::execute );
-		featureManager.addFeature( "sightReminder", new sightReminderFeature()::execute );
+		featureManager.addFeature( "eating-reminder", new eatingReminderFeature()::execute );
+		featureManager.addFeature( "hearing-reminder", new hearingReminderFeature()::execute );
+		featureManager.addFeature( "hydration-reminder", new hydrationReminderFeature()::execute );
+		featureManager.addFeature( "sedentary-reminder", new sedentaryReminderFeature()::execute );
+		featureManager.addFeature( "session-reminder", new sessionReminderFeature()::execute );
+		featureManager.addFeature( "sight-reminder", new sightReminderFeature()::execute );
 		
 		// # Load Features
 		featureManager.loadFeatures();
