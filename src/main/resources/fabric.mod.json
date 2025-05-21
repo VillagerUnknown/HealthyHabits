@@ -6,11 +6,11 @@
   "description": "A personal wellness tool to encourage healthy habits by adding positive affirmations, wellness reminders, and wellness breaks to your game.",
   "authors": ["VillagerUnknown"],
   "contact": {
-    "homepage":"https://modrinth.com/mod/villagerunknown-healthyhabits",
+    "homepage":"https://github.com/VillagerUnknown",
     "sources": "https://github.com/VillagerUnknown/HealthyHabits",
     "issues": "https://github.com/VillagerUnknown/HealthyHabits/issues"
   },
-  "license": "CC-BY-4.0",
+  "license": "MIT",
   "icon": "assets/villagerunknown-healthyhabits/villagerunknown-healthy-habits.png",
   "environment": "*",
   "entrypoints": {
