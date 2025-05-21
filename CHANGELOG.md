@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- Changed supported Platform version to 1.3.0.
+- Changed supported Platform version to 1.3.0. _This resolves stuttering issues and includes new features._
 
 ## [1.0.2]
 
