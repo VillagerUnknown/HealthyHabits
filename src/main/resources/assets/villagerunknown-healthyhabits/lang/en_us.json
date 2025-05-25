@@ -78,5 +78,8 @@
 
   "stat.villagerunknown-healthyhabits.total_affirmations": "Affirmations Received",
   "stat.villagerunknown-healthyhabits.total_breaks": "Breaks Taken",
-  "stat.villagerunknown-healthyhabits.total_reminders": "Reminders Received"
+  "stat.villagerunknown-healthyhabits.total_reminders": "Reminders Received",
+
+  "text.villagerunknown-healthyhabits.affirmation.damage": "REMAIN CALM AND BREATH",
+  "text.villagerunknown-healthyhabits.notice.death": "You died at: %s"
 }
