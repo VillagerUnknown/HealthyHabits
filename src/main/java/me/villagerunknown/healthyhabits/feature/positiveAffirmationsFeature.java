@@ -427,53 +427,60 @@ public class positiveAffirmationsFeature {
 		// # Server ticks
 		ServerTickEvents.START_SERVER_TICK.register(minecraftServer -> {
 			long currentTick = minecraftServer.getTicks();
+			int currentPlayerCount = minecraftServer.getPlayerManager().getCurrentPlayerCount();
 			
-			for( Map.Entry<UUID, ServerTickTimer> playerData : playerTimers.entrySet() ) {
-				UUID playerUUID = playerData.getKey();
-				ServerTickTimer playerTimer = playerData.getValue();
+			if( currentPlayerCount > 0 ) {
 				
-				playerTimer.tick( currentTick );
-				
-				if( playerTimer.isAlarmActivated() ) {
-					ServerPlayerEntity player = minecraftServer.getPlayerManager().getPlayer( playerUUID );
-					
-					if( null != player ) {
-						if (player.isAlive() && !player.isSleeping()) {
-							if( TimeUtil.isNightTime( player.getServerWorld() ) ) {
-								sendMessage(positiveAffirmationsForSleep.getList(), player);
-							} else {
-								sendMessage(positiveAffirmations.getList(), player);
-							} // if, else
+				if (!playerTimers.isEmpty()) {
+					for (Map.Entry<UUID, ServerTickTimer> playerData : playerTimers.entrySet()) {
+						UUID playerUUID = playerData.getKey();
+						ServerTickTimer playerTimer = playerData.getValue();
+						
+						playerTimer.tick(currentTick);
+						
+						if (playerTimer.isAlarmActivated()) {
+							ServerPlayerEntity player = minecraftServer.getPlayerManager().getPlayer(playerUUID);
+							
+							if (null != player) {
+								if (player.isAlive() && !player.isSleeping()) {
+									if (TimeUtil.isNightTime(player.getServerWorld())) {
+										sendMessage(positiveAffirmationsForSleep.getList(), player);
+									} else {
+										sendMessage(positiveAffirmations.getList(), player);
+									} // if, else
+								} // if
+							} // if
+							
+							playerTimer.resetAlarmActivation(currentTick);
 						} // if
-					} // if
-					
-					playerTimer.resetAlarmActivation( currentTick );
+					} // for
 				} // if
-			} // for
-			
-			if (!displayTimers.isEmpty()) {
-				for (Map.Entry<UUID, ServerTickTimer> displayData : displayTimers.entrySet()) {
-					UUID playerUUID = displayData.getKey();
-					ServerTickTimer displayTimer = displayData.getValue();
-					
-					if( displayTimer.hasData() ) {
-						Object affirmationMessage = displayTimer.getData("affirmation");
-
-						ServerPlayerEntity player = minecraftServer.getPlayerManager().getPlayer(playerUUID);
-
-						if (null != player && null != affirmationMessage) {
-							if (player.isAlive() && !player.isSleeping()) {
-								showActionBarMessage(affirmationMessage.toString(), player);
+				
+				if (!displayTimers.isEmpty()) {
+					for (Map.Entry<UUID, ServerTickTimer> displayData : displayTimers.entrySet()) {
+						UUID playerUUID = displayData.getKey();
+						ServerTickTimer displayTimer = displayData.getValue();
+						
+						if (displayTimer.hasData()) {
+							Object affirmationMessage = displayTimer.getData("affirmation");
+							
+							ServerPlayerEntity player = minecraftServer.getPlayerManager().getPlayer(playerUUID);
+							
+							if (null != player && null != affirmationMessage) {
+								if (player.isAlive() && !player.isSleeping()) {
+									showActionBarMessage(affirmationMessage.toString(), player);
+								} // if
 							} // if
 						} // if
-					} // if
-					
-					displayTimer.tick( currentTick );
-					
-					if (displayTimer.isAlarmActivated()) {
-						displayTimers.remove(playerUUID);
-					} // if
-				} // for
+						
+						displayTimer.tick(currentTick);
+						
+						if (displayTimer.isAlarmActivated()) {
+							displayTimers.remove(playerUUID);
+						} // if
+					} // for
+				} // if
+				
 			} // if
 		});
 		
@@ -491,7 +498,7 @@ public class positiveAffirmationsFeature {
 				ServerPlayerEntity player = (ServerPlayerEntity) entity;
 				
 				if( Healthyhabits.CONFIG.enableDamageAffirmations ) {
-					player.sendMessageToClient(Text.of("REMAIN CALM AND BREATH"), true);
+					player.sendMessageToClient(Text.translatable( "text.villagerunknown-healthyhabits.affirmation.damage" ), true);
 				} // if
 			} // if
 			
@@ -503,7 +510,8 @@ public class positiveAffirmationsFeature {
 		ServerLivingEntityEvents.ALLOW_DEATH.register((livingEntity, damageSource, v) -> {
 			if( livingEntity instanceof PlayerEntity playerEntity) {
 				if( Healthyhabits.CONFIG.revealCoordinatesOnDeath ) {
-					playerEntity.sendMessage( Text.of("You died at: " + (int) Math.floor(livingEntity.getPos().getX()) + " " + (int) Math.floor(livingEntity.getPos().getY()) + " " + (int) Math.floor(livingEntity.getPos().getZ())), false);
+					String locationString = (int) Math.floor(livingEntity.getPos().getX()) + " " + (int) Math.floor(livingEntity.getPos().getY()) + " " + (int) Math.floor(livingEntity.getPos().getZ());
+					playerEntity.sendMessage( Text.translatable("text.villagerunknown-healthyhabits.notice.death", locationString), false);
 				} // if
 			} // if
 			return true;
