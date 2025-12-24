@@ -15,7 +15,7 @@ public class hydrationReminderFeature extends reminderFeature {
 			Healthyhabits.CONFIG.hydrationReminderFrequencyInMinutes,
 			Healthyhabits.CONFIG.hydrationBreakInMinutes,
 			Healthyhabits.CONFIG.hydrationBreakShowsMenu,
-			SoundEvents.ENTITY_GENERIC_DRINK
+			SoundEvents.ENTITY_GENERIC_DRINK.value()
 		);
 	}
 	

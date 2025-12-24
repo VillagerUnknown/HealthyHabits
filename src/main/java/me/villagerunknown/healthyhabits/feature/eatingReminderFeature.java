@@ -16,7 +16,7 @@ public class eatingReminderFeature extends reminderFeature {
 			Healthyhabits.CONFIG.eatingReminderFrequencyInMinutes,
 			Healthyhabits.CONFIG.eatingBreakInMinutes,
 			Healthyhabits.CONFIG.eatingBreakShowsMenu,
-			SoundEvents.ENTITY_GENERIC_EAT
+			SoundEvents.ENTITY_GENERIC_EAT.value()
 		);
 	}
 	
